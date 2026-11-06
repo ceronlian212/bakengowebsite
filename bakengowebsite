@@ -1,0 +1,690 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bake'n'Go</title>
+
+<style>
+:root {
+    --beige: #f3ede4;
+    --cream: #fffaf4;
+    --brown: #79543b;
+    --dark: #292521;
+    --muted: #766e65;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--beige);
+    color: var(--dark);
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+header {
+    background: rgba(255,250,244,0.95);
+    padding: 15px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid #e8ded2;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: bold;
+    font-size: 22px;
+    color: var(--brown);
+}
+
+.logo img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+nav a:hover {
+    color: var(--brown);
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.hero {
+    min-height: 570px;
+    padding: 100px 8%;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(120deg,#f3ede4,#e8d9c7);
+}
+
+.hero-content {
+    max-width: 650px;
+}
+
+.eyebrow {
+    color: var(--brown);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.hero h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(48px,7vw,82px);
+    line-height: 1.05;
+    margin: 20px 0;
+}
+
+.hero h1 em {
+    color: var(--brown);
+}
+
+.hero p {
+    font-size: 19px;
+    color: var(--muted);
+    max-width: 580px;
+}
+
+.btn {
+    display: inline-block;
+    background: var(--brown);
+    color: white;
+    padding: 14px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    border: none;
+    margin-top: 25px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #593b28;
+}
+
+section.content {
+    padding: 80px 8%;
+}
+
+.section-title {
+    font-family: Georgia, serif;
+    font-size: 43px;
+    margin-bottom: 15px;
+}
+
+.intro {
+    color: var(--muted);
+    margin-bottom: 35px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 25px;
+}
+
+.product {
+    background: var(--cream);
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px #79543b12;
+}
+
+.product img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 25px;
+}
+
+.product h3 {
+    font-family: Georgia, serif;
+    font-size: 27px;
+    margin-bottom: 8px;
+}
+
+.product p {
+    color: var(--muted);
+}
+
+.product button {
+    background: none;
+    border: none;
+    color: var(--brown);
+    font-weight: bold;
+    margin-top: 15px;
+    font-size: 15px;
+}
+
+.about {
+    background: #302a25;
+    color: white;
+    border-radius: 25px;
+    padding: 55px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.about h2 {
+    font-family: Georgia, serif;
+    font-size: 40px;
+    margin: 15px 0;
+}
+
+.about p {
+    color: #e5d9cc;
+}
+
+.about img {
+    max-width: 230px;
+    width: 100%;
+    display: block;
+    margin: auto;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.step {
+    background: var(--cream);
+    padding: 25px;
+    border-radius: 18px;
+}
+
+.step strong {
+    color: var(--brown);
+    font-size: 13px;
+}
+
+.step h3 {
+    margin: 10px 0;
+    font-family: Georgia, serif;
+    font-size: 22px;
+}
+
+/* Rezeptseiten */
+
+.recipe-page {
+    display: none;
+}
+
+.recipe-header {
+    padding: 60px 8% 30px;
+}
+
+.recipe-header h1 {
+    font-family: Georgia, serif;
+    font-size: 58px;
+    margin: 10px 0;
+}
+
+.recipe-header p {
+    color: var(--muted);
+    max-width: 650px;
+}
+
+.recipe-banner {
+    margin: 20px 8% 35px;
+    height: 300px;
+    border-radius: 25px;
+    background-position: center;
+    background-size: cover;
+}
+
+.recipe-warning {
+    margin: 0 8% 30px;
+    background: #ead9c6;
+    border-radius: 15px;
+    padding: 20px;
+    color: #654b36;
+}
+
+.recipe-grid {
+    margin: 0 8% 70px;
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 25px;
+}
+
+.recipe-box {
+    background: var(--cream);
+    padding: 30px;
+    border-radius: 22px;
+}
+
+.recipe-box h2 {
+    font-family: Georgia, serif;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.recipe-box ul,
+.recipe-box ol {
+    padding-left: 22px;
+}
+
+.recipe-box li {
+    margin-bottom: 13px;
+}
+
+.back-btn {
+    margin: 0 8% 70px;
+    display: inline-block;
+    color: var(--brown);
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 16px;
+}
+
+footer {
+    background: #e8ded2;
+    padding: 35px;
+    text-align: center;
+    color: var(--muted);
+}
+
+footer strong {
+    color: var(--brown);
+}
+
+@media(max-width:800px) {
+    .products,.steps,.about,.recipe-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 70px 7%;
+    }
+
+    .about {
+        padding: 30px;
+    }
+
+    nav {
+        gap: 12px;
+        font-size: 13px;
+    }
+
+    .recipe-banner {
+        height: 220px;
+    }
+
+    .recipe-header h1 {
+        font-size: 43px;
+    }
+}
+
+@media(max-width:480px) {
+    header {
+        padding: 10px 4%;
+    }
+
+    .logo {
+        font-size: 16px;
+    }
+
+    .logo img {
+        width: 42px;
+        height: 42px;
+    }
+
+    nav {
+        gap: 10px;
+    }
+
+    nav a {
+        font-size: 12px;
+    }
+
+    section.content {
+        padding: 55px 6%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <img src="Bakengo_Logo.png" alt="Bake n Go Logo">
+        BAKE N GO
+    </div>
+
+    <nav>
+        <a onclick="showPage('home')">Startseite</a>
+        <a onclick="showPage('recipes')">Rezepte</a>
+    </nav>
+</header>
+
+<!-- STARTSEITE -->
+
+<main id="home">
+
+<section class="hero">
+    <div class="hero-content">
+
+        <h1>
+            Ganz einfach<br>
+            <em>Selbst backen.</em>
+        </h1>
+
+        <p>
+            Lust auf ein selbstgemachtes Gebäck, aber keine Zeit lange zu backen?
+
+            Dann ist Bake'n'go genau das Richtige für Dich!
+        </p>
+
+        <button class="btn" onclick="showPage('recipes')">
+            Unsere Rezepte entdecken
+        </button>
+    </div>
+</section>
+
+<section class="content">
+    <h2 class="section-title">Rezepte</h2>
+
+
+    <div class="products">
+        <div class="product">
+            <div class="product-info">
+                <h3>Cookies</h3>
+                <p>Cookies einfach selbst backen.</p>
+                <button onclick="showPage('cookies')">
+                    Rezept ansehen 🍪
+                </button>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-info">
+                <h3>Muffins</h3>
+                <p>Feine Muffins mit Schokoladenwürfeln.</p>
+                <button onclick="showPage('muffins')">
+                    Rezept ansehen 🥧
+                </button>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-info">
+                <h3>Pancakes</h3>
+                <p>Luftige Pancakes für ein gemütliches Frühstück.</p>
+                <button onclick="showPage('pancakes')">
+                    Rezept ansehen 🥞
+                </button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="content">
+    <div class="about">
+        <div>
+           
+ <h2 class="section-title">Das ist Bake'n'go</h2>
+ 
+            
+			
+		<ul>
+			<li>Wir sind Ricarda, Minh, Alessio, Lian und Lino
+                und haben unsere eigenen Backmischungen
+                zusammengestellt und abgefüllt.</li>
+				
+			<li>Wir sind Schüler und Schülerinnen der 
+				Kantonsschule Willisau und haben dieses
+				Start-Up Unternehmen gegründet.</li>
+				
+			<li>Backen soll unkompliziert sein, 
+                auch wenn man nicht viel Zeit hat.</li>
+				
+		</ul>
+
+            
+        </div>
+
+        <div>
+            <img src="Bakengo_Logo.png" />
+        </div>
+    </div>
+</section>
+
+
+</main>
+
+<!-- REZEPTÜBERSICHT -->
+
+<main id="recipes" style="display:none">
+
+<section class="recipe-header">
+    <h1>Unsere Rezepte.</h1>
+    <p>
+
+    </p>
+</section>
+
+<section class="content" style="padding-top:10px">
+    <div class="products">
+
+        <div class="product">
+            <div class="product-info">
+                <h3>Cookies</h3>
+                <p>Cookies einfach selbst backen.</p>
+                <button onclick="showPage('cookies')">Zum Rezept 🍪</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-info">
+                <h3>Muffins</h3>
+                <p>Feine Muffins mit Schokoladenwürfeln.</p>
+                <button onclick="showPage('muffins')">Zum Rezept 🥧</button>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="product-info">
+                <h3>Pancakes</h3>
+                <p>Luftige Pancakes für ein gemütliches Frühstück.</p>
+                <button onclick="showPage('pancakes')">Zum Rezept 🥞</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+</main>
+
+<!-- COOKIES -->
+
+<main id="cookies" class="recipe-page">
+
+<section class="recipe-header">
+    <h1>Cookies</h1>
+</section>
+
+<div class="recipe-grid">
+
+    <div class="recipe-box">
+        <h2>Zutaten Liste</h2>
+        <ul>
+            <li>Bake'n'Go Cookies-Backmischung</li>
+            <li>110 g weiche Butter</li>
+            <li>1 Ei</li>
+        </ul>
+    </div>
+
+    <div class="recipe-box">
+        <h2>Anleitung</h2>
+        <ol>
+            <li>Backofen auf 175 °C Ober-/Unterhitze vorheizen.</li>
+            <li>Weiche Butter und Ei in einer Schüssel verrühren.</li>
+            <li>Den gesamten Inhalt des Cookies-Beutels auf einmal dazugeben.</li>
+            <li>Alles zu einem gleichmässigen Teig vermengen.</li>
+            <li>Teighäufchen mit genügend Abstand auf ein Backblech setzen.</li>
+            <li>Die Cookies etwa 15 Minuten kühl stellen.</li>
+            <li>Ca. 11–13 Minuten backen und anschliessend abkühlen lassen.</li>
+        </ol>
+    </div>
+
+</div>
+
+<button class="back-btn" onclick="showPage('recipes')">
+    Zurück zu den Rezepten
+</button>
+
+</main>
+
+<!-- MUFFINS -->
+
+<main id="muffins" class="recipe-page">
+
+<section class="recipe-header">
+    <h1>Muffins</h1>
+</section>
+
+<div class="recipe-grid">
+
+    <div class="recipe-box">
+        <h2>Zutaten Liste</h2>
+        <ul>
+            <li>Bake'n'Go Muffins-Backmischung</li>
+            <li>60 g weiche Butter</li>
+            <li>1 Ei</li>
+            <li>1 dl Milch</li>
+        </ul>
+    </div>
+
+    <div class="recipe-box">
+        <h2>Anleitung</h2>
+        <ol>
+            <li>Backofen auf 180 °C Ober-/Unterhitze vorheizen.</li>
+            <li>Weiche Butter und Ei cremig verrühren.</li>
+            <li>Den gesamten Inhalt des Muffins-Beutels auf einmal dazugeben.</li>
+            <li>Milch hinzufügen und alles kurz zu einem Teig verrühren.</li>
+            <li>Den Teig gleichmässig auf Muffinförmchen verteilen.</li>
+            <li>Ca. 20–25 Minuten backen.</li>
+            <li>Mit einem Holzstäbchen prüfen, ob die Muffins fertig sind.</li>
+        </ol>
+    </div>
+
+</div>
+
+<button class="back-btn" onclick="showPage('recipes')">
+    Zurück zu den Rezepten
+</button>
+
+</main>
+
+<!-- PANCAKES -->
+
+<main id="pancakes" class="recipe-page">
+
+<section class="recipe-header">
+    <div class="eyebrow">Bake n Go Rezept</div>
+    <h1>Pancakes</h1>
+</section>
+
+
+
+<div class="recipe-grid">
+
+    <div class="recipe-box">
+        <h2>Rezept Liste</h2>
+        <ul>
+            <li>Bake'n'Go Pancakes-Backmischung</li>
+            <li>2 dl Milch</li>
+            <li>2 Eier</li>
+            <li>Etwas Butter zum Ausbacken</li>
+        </ul>
+    </div>
+
+    <div class="recipe-box">
+        <h2>Anleitung</h2>
+        <ol>
+            <li>Milch und Eier in einer Schüssel verquirlen.</li>
+            <li>Den gesamten Inhalt des Pancakes-Beutels auf einmal dazugeben.</li>
+            <li>Alles zu einem glatten Teig verrühren.</li>
+            <li>Eine beschichtete Pfanne mit etwas Butter erhitzen.</li>
+            <li>Den Teig portionsweise in die Pfanne geben.</li>
+            <li>Wenn sich Bläschen bilden, die Pancakes wenden.</li>
+            <li>Die zweite Seite goldbraun fertig backen.</li>
+        </ol>
+    </div>
+
+</div>
+
+<button class="back-btn" onclick="showPage('recipes')">
+    Zurück zu den Rezepten
+</button>
+
+</main>
+
+<footer>
+    <strong>BAKE N GO</strong>
+</footer>
+
+<script>
+function showPage(page) {
+
+    document.getElementById('home').style.display = 'none';
+    document.getElementById('recipes').style.display = 'none';
+
+    document.querySelectorAll('.recipe-page').forEach(el => {
+        el.style.display = 'none';
+    });
+
+    if(page === 'home' || page === 'recipes') {
+        document.getElementById(page).style.display = 'block';
+    } else {
+        document.getElementById(page).style.display = 'block';
+    }
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+</script>
+
+</body>
+</html>
